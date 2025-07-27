@@ -67,6 +67,16 @@ and customer behavior to support better business decisions across logistics, mar
   
 ## Business Insights
 
+- Top 10 Customer Names by sales ,Analysed through pandas
+
+      c_names = df.groupby("Customer Name")[['Sales']].sum().sort_values(by="Sales",ascending=False).head(10)
+      sns.barplot(y="Customer Name",x="Sales",data=c_names)
+      plt.title("Top 10 Customer Names Vs Sales")
+      plt.show()
+
+![Top 10 Customers by Sales](<img width="1980" height="1499" alt="Image" src="https://github.com/user-attachments/assets/9001dbea-33e6-4d6a-926e-5b0145b79745" />)  
+  
+
   
   
  
