@@ -67,16 +67,40 @@ and customer behavior to support better business decisions across logistics, mar
   
 ## Business Insights
 
-- Top 10 Customer Names by sales ,Analysed through pandas
+### Top 10 Customer Names by sales
 
       c_names = df.groupby("Customer Name")[['Sales']].sum().sort_values(by="Sales",ascending=False).head(10)
       sns.barplot(y="Customer Name",x="Sales",data=c_names)
       plt.title("Top 10 Customer Names Vs Sales")
       plt.show()
 
-![Top 10 Customers by Sales](<img width="1980" height="1499" alt="Image" src="https://github.com/user-attachments/assets/9001dbea-33e6-4d6a-926e-5b0145b79745" />)  
-  
+<img width="2021" height="1357" alt="Image" src="https://github.com/user-attachments/assets/0838007d-336d-4e9c-bd2e-bb60aa770567" />
 
-  
-  
+
+### Region wise Profit by Customer Segment
+
+      df.pivot_table(
+          index = "Segment",
+          columns = "Region",
+          values = "Profit",
+          aggfunc = 'sum'
+      ).style.background_gradient(cmap="RdYlGn",axis=None)
+
+- The below heatmap shows Region wise customer Profit segment ,so most profitable customers are in the Consumer segment from Central region
+
+<img width="1236" height="210" alt="Image" src="https://github.com/user-attachments/assets/e53360b7-6051-4d0c-80d1-be9ff5785b5b" />  
+
+---
+
+- In power bi Dashboard We can see Top 10 products by Sales and Total sales by region
+- All KPI's, Sales and Profit by monthly Trends
+- Total Profit By product category and Total sales by Order Priority
+- Two slicers by Segment and Shipmode
+
+
+
+
+<img width="1314" height="730" alt="Image" src="https://github.com/user-attachments/assets/36f4a8de-beb5-4ffe-b0e0-317114a4fa41" />
+
+
  
