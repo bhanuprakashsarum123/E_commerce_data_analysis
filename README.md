@@ -8,7 +8,7 @@ This dashboard helps to analyze key business metrics of E_commerce_data includin
 and customer behavior to support better business decisions across logistics, marketing, and sales strategy.
 
 ## KPIs & Visuals
-- Total Sales,Toatal Profit,Avg Order Value,Avg Shipping Cost,Profit %,Avg Delivery days
+- Total Sales,Total Profit,Avg Order Value,Avg Shipping Cost,Profit %,Avg Delivery days
 - Monthly Sales and Profit Trends
 - Top 10 products by sales
 - % composition of Total Profit by Categories and Total sales by order priority
@@ -19,3 +19,54 @@ and customer behavior to support better business decisions across logistics, mar
 - mySQL for data storage
 - Power BI for reports
 
+### Steps Followed
+- Step 1 : Open Jupytor Notebook Read the CSV data file and then removing null values
+- Step 2 : Changed the object data types into Int,Float data types based on our requirements
+  
+        e_df['Sales'] = pd.to_numeric(e_df['Sales'],errors = "coerce").astype("Int32")
+        e_df['Aging'] = pd.to_numeric(e_df['Aging'],errors = "coerce").astype("Float32").astype("Int32")
+        e_df['Quantity'] = pd.to_numeric(e_df['Quantity'],errors = "coerce").astype("Int32")
+        e_df['Profit'] = pd.to_numeric(e_df['Profit'],errors = "coerce").astype("Float32").astype("Int32")
+        e_df['Discount'] = pd.to_numeric(e_df['Discount'],errors = "coerce").astype("Float32")
+        e_df['Shipping Cost'] = pd.to_numeric(e_df['Shipping Cost'],errors = "coerce").astype("Float32")
+
+        e_df.dtypes
+- Step 3 : corrected the wrong region values like 'So3th', '4orth' to 'South', 'North'
+
+        #here i renamed 'So3th', '4orth' to 'South', 'North'
+        #e_df.Region.unique()
+        e_df['Region'].replace({
+           'So3th':'South', 
+            '4orth':'North' 
+        },inplace=True)
+  
+
+- Step 4 : Removed the $ symbol "Sales","Profit","Shipping Cost" these columns for performing the calculations
+
+        e_cols = ["Sales","Profit","Shipping Cost"]
+        for col in e_cols:
+            e_df[col] = e_df[col].str.replace('$','')
+            
+- Step 5 : After added the data into the mySQL workbench and then opened powerbi connected to the sql from powerbi
+- Step 6 : Created Some measures and added to the dashboard with card visual
+
+           Total Sales = SUM('e_commerce_data e_com_data'[Sales])
+           Total Profit = sum('e_commerce_data e_com_data'[Profit])
+           Avg Order Value = DIVIDE([Total Sales],DISTINCTCOUNT('e_commerce_data e_com_data'[Order ID]))
+           Avg Shipping Cost = AVERAGE('e_commerce_data e_com_data'[Shipping Cost])
+           Profit % = DIVIDE([Total Profit],[Total Sales])
+           Avg Delivery Days = AVERAGE('e_commerce_data e_com_data'[Aging])
+
+- Step 7 : Added a Gauge visual to the dashboard and set target value as 0.45 (45%)
+- Step 8 : Added a Line chart to visualise the monthly Total sales and Total profit
+- Step 9 : Created a Bar chart with Top 10 Products by Sales and then added another Bar chart with Total Sales By Region
+- Step 10 : Added a Donut chart that shows Total Profit % by Product category
+- Step 11 : Added a Pie-chart that shows Total Sales % by Order Priority
+- Step 12 : Added a New Slicer with Segment,by this we can filter by Consumer,Corporate & Homeoffice
+- Step 13 : Added a Another New Slicer with Ship mode ,we can filter out by ship mode 
+  
+## Business Insights
+
+  
+  
+ 
